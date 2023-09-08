@@ -1,0 +1,19 @@
+const mongoose = require("mongoose");
+
+const roleSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: String,
+      required: true,
+      unique:true,
+    },
+    name: {
+      type: String,
+      maxLength: 64,
+      unique: true,
+    },
+    scopes: [],
+  },
+  { timestamps: true }
+);
+module.exports = mongoose.model("roleSchema", roleSchema);
