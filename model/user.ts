@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       maxLength: 64,
     },
   },
-  { timestamps: true }
+  { timestamps: true, }, { _id: false }
 );
 
 module.exports = mongoose.model("userSchema", userSchema);

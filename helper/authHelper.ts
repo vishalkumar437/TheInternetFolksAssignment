@@ -2,7 +2,7 @@ const userModel = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const ResponseTemp = require("../utils/ResponseTemp");
-class AuthService {
+class AuthHelper {
   async findUserByEmail(email: string) {
     const data = await userModel.findOne({ email });
 
@@ -25,6 +25,7 @@ class AuthService {
   }
 
   async createNewUser(data: {
+    id: string;
     email: string;
     password: string;
     name: string;
@@ -50,10 +51,7 @@ class AuthService {
     }
   }
 
-  async login(data: {
-    email: string;
-    password: string;
-  }): Promise<any> {
+  async login(data: { email: string; password: string }): Promise<any> {
     const resp = await this.findUserByEmail(data?.email);
 
     if (resp) {
@@ -75,6 +73,7 @@ class AuthService {
     return await bcrypt.compare(userGivenPassword, savedPassword);
   }
 
+
   async createToken(content: { data: { _id: string } }): Promise<any> {
     const access_token = jwt.sign(
       { id: content?.data?._id },
@@ -86,4 +85,4 @@ class AuthService {
   }
 }
 
-export default AuthService;
+export default AuthHelper;
