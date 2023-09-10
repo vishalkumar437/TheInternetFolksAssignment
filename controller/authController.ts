@@ -1,4 +1,4 @@
-import { request, response } from "../interface/interface";
+
 import { Snowflake } from "@theinternetfolks/snowflake";
 import AuthHelper from "../helper/authHelper"; // Assuming it's an ES6 module
 const responseTemp = require("../utils/ResponseTemp");
@@ -6,7 +6,7 @@ import {APPError} from "../utils/Error";
 
 class AuthController {
   authHelperObject = new AuthHelper();
-  signup = async (req: response, res: request) => {
+  signup = async (req:any, res:any) => {
     const { email, password, name } = req.body;
     console.log(req.body)
     if (
@@ -38,7 +38,16 @@ class AuthController {
         .json(response);
     }
   };
-  signin = async (req: request, res: response) => {
+  signin = async (req: { body: { email: any; password: any; }; }, res: {
+      status: (arg0: any) => {
+        (): any; new(): any; cookie: {
+          (arg0: string, arg1: any, arg2: {
+            expires: Date // Assuming it's an ES6 module
+            ; httpOnly: boolean;
+          }): { (): any; new(): any; json: { (arg0: any): void; new(): any; }; }; new(): any;
+        };
+      };
+    }) => {
     const { email, password } = req.body;
     if (!email || !password) {
       throw new APPError(false, "Email and Password Missing", 404);
@@ -61,7 +70,7 @@ class AuthController {
   };
   // If a user is found, it removes the password from the response and prepares a response object with the found user details.
   //If no user is found, it prepares a response object indicating that user details were not found.
-    get_me =  async (req: response, res: request) => {
+    get_me =  async (req: { user: { email: string; }; }, res: { status: (arg0: any) => { (): any; new(): any; json: { (arg0: any): any; new(): any; }; }; }) => {
     const resp = await this.authHelperObject.findUserByEmail(req.user.email);
     let details;
     if (resp) {

@@ -1,4 +1,4 @@
-import { request, response } from "./interface/interface";
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -13,7 +13,7 @@ mongooseConn();3
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
-app.get("/", (req: request, res: response) => {
+app.get("/", (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
   console.log(req);
   res.status(200).send("Welcom To the Assignment");
 });

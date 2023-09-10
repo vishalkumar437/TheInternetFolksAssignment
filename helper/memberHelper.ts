@@ -1,5 +1,4 @@
 const memberModel = require("../model/member");
-const roleModel = require("../model/role");
 import {APPError} from "../utils/Error";
 const ResponseTemp = require("../utils/ResponseTemp");
 

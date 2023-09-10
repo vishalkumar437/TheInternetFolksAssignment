@@ -1,4 +1,3 @@
-import { response, signIndata, signUpdata } from "../interface/interface";
 
 const userModel = require("../model/user");
 const jwt = require("jsonwebtoken");
@@ -27,7 +26,7 @@ class AuthHelper {
     return true;
   }
 
-  async createNewUser(data: signUpdata): Promise<response> {
+  async createNewUser(data: { id?: string; email: string; password: string; name?: string; }): Promise<any> {
     const res = await this.findUserByEmail(data?.email);
     if (res) {
       throw new Error("User already exists");
@@ -48,7 +47,7 @@ class AuthHelper {
     }
   }
   
-  async login(data:signIndata): Promise<any> {
+  async login(data: { email: string; password: string; }): Promise<any> {
     const resp = await this.findUserByEmail(data?.email);
 
     if (resp) {

@@ -1,4 +1,3 @@
-import { request, response } from "../interface/interface";
 
 const MemberService = require("../helper/memberHelper");
 const RoleService = require("../helper/roleHelper");
@@ -8,7 +7,7 @@ class MemberController {
 
     memberServiceInstance = new MemberService;
    roleServiceInstance = new RoleService
-   createMember = async(req:request,res:response)=>{
+   createMember = async(req: { body: { community: any; user: any; role: any; }; },res: { status: (arg0: any) => { (): any; new(): any; json: { (arg0: any): any; new(): any; }; }; })=>{
      const {community , user, role} = req.body
       
      if(!community || !user || !role){
@@ -31,7 +30,7 @@ class MemberController {
 
    }
 
-   removeMember = async(req:request,res:response)=>{
+   removeMember = async(req: { query: { id: any; }; },res: { status: (arg0: any) => { (): any; new(): any; json: { (arg0: any): any; new(): any; }; }; })=>{
 
     const {id} = req.query;
       
