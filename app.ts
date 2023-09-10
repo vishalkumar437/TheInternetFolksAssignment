@@ -1,4 +1,4 @@
-import { request, response } from "./interface/interface.ts";
+import { request, response } from "./interface/interface";
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -9,7 +9,7 @@ const authRoute = require("./routes/authRoute");
 const roleRoute = require("./routes/roleRoute");
 const communityRoute = require("./routes/communityRoute");
 const memberRoute = require("./routes/memberRoute");
-mongooseConn();
+mongooseConn();3
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
