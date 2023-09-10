@@ -1,4 +1,4 @@
-import { request, response } from "./interface/interface";
+import { request, response } from "./interface/interface.ts";
 const express = require("express");
 const app = express();
 const cors = require("cors");
