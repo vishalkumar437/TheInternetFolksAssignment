@@ -12,16 +12,7 @@ const authRoutes = express.Router();
 authRoutes.get("/welcome",function(req:request ,res:response){
     res.send("its a welcome route")
 })
-
-const tryCatch = (controller:any)=> async (req:request,res:response,next:any)=>{
-    try {
-     await controller(req, res)
-   
-    } catch (error) {
-        return next(error)
-    }
-}
-
+import { tryCatch } from "../utils/tryCatch";
 const auth  = new AuthController;
 
 authRoutes.post("/signup",tryCatch(auth.signup),errorHandler)

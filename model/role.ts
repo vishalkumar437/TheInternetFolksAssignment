@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const roleSchema = new mongoose.Schema(
   {
-    _id: {
+    id: {
       type: String,
       required: true,
       unique:true,

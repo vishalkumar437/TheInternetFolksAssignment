@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
-    _id: {
+    id: {
       type: String,
       required: true,
       unique:true
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       maxLength: 64,
     },
   },
-  { timestamps: true, }, { _id: false }
+  { timestamps: true, }
 );
 
 module.exports = mongoose.model("userSchema", userSchema);

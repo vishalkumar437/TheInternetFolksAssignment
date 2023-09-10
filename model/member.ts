@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const communitySchema = require("./community");
 const userSchema = require("./user");
 const roleSchema = require("./role");

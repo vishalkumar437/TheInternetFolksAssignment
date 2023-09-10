@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const slug = require("mongoose-slug-generator");
 const userModel = require("./user");
 
 mongoose.plugin(slug);
 
 const communitySchema = new mongoose.Schema({
-  _id: {
+  id: {
     type: String,
     required: true,
     unique:true,
@@ -14,18 +14,21 @@ const communitySchema = new mongoose.Schema({
     type: String,
     max: 255,
   },
-  slug: {
-    type: String,
-    slug: "name",
-    unique: true,
-    slug_padding_size: 2, // Optional: Add padding to make slugs unique
-    maxLength: 255,
+  slug:{
+    type:String,
+    slug:"name",
+    maxLength:255,
+    minLength:0,
   },
   owner: {
     type: String,
     ref: userModel,
   },
-}, { timestamps: true });
+}, { timestamps: true })
 
+communitySchema.pre("save", function(next) {
+  this.slug = this.name?.replace(/[-\s]/g, "").toLowerCase();
+  next();
+})
 
 module.exports = mongoose.model("communitySchema", communitySchema);

@@ -2,7 +2,7 @@ import { request, response } from "../interface/interface";
 import { Snowflake } from "@theinternetfolks/snowflake";
 import AuthHelper from "../helper/authHelper"; // Assuming it's an ES6 module
 const responseTemp = require("../utils/ResponseTemp");
-const Error = require("../utils/Error");
+import {APPError} from "../utils/Error";
 
 class AuthController {
   authHelperObject = new AuthHelper();
@@ -41,7 +41,7 @@ class AuthController {
   signin = async (req: request, res: response) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      throw new Error(false, "Email and Password Missing", 404);
+      throw new APPError(false, "Email and Password Missing", 404);
     }
     let response = await this.authHelperObject.login({ email, password });
     let respToken = await this.authHelperObject.createToken(response.content);

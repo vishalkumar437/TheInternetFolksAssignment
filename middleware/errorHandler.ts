@@ -1,8 +1,7 @@
-const APPError = require("../utils/Error");
-
+import { APPError } from "../utils/Error";
 
 // we need to pass four parameter to tell nodejs that it is a error middleware
-const errorHandler = (error:any, req:any, res:any, next:any) =>{
+const errorhandler = (error:any, req:any, res:any, next:any) =>{
 
 
     if(error instanceof APPError){
@@ -24,4 +23,4 @@ const errorHandler = (error:any, req:any, res:any, next:any) =>{
     }
 }
 
-module.exports = errorHandler;
+module.exports = errorhandler;

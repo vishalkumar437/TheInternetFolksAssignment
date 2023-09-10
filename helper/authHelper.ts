@@ -1,7 +1,10 @@
+import { response, signIndata, signUpdata } from "../interface/interface";
+
 const userModel = require("../model/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const ResponseTemp = require("../utils/ResponseTemp");
+
 class AuthHelper {
   async findUserByEmail(email: string) {
     const data = await userModel.findOne({ email });
@@ -15,23 +18,17 @@ class AuthHelper {
     name: string
   ): Promise<boolean> {
     if (!email) {
-      throw new Error("Email not found");
+      throw new Error("Email missing");
     } else if (!password || password.length < 6) {
-      throw new Error("Password not found or less than 6 characters");
+      throw new Error("Password less than 6 characters");
     } else if (!name) {
-      throw new Error("Name not found");
+      throw new Error("Name missing");
     }
     return true;
   }
 
-  async createNewUser(data: {
-    id: string;
-    email: string;
-    password: string;
-    name: string;
-  }): Promise<any> {
+  async createNewUser(data: signUpdata): Promise<response> {
     const res = await this.findUserByEmail(data?.email);
-
     if (res) {
       throw new Error("User already exists");
     } else {
@@ -50,8 +47,8 @@ class AuthHelper {
       }
     }
   }
-
-  async login(data: { email: string; password: string }): Promise<any> {
+  
+  async login(data:signIndata): Promise<any> {
     const resp = await this.findUserByEmail(data?.email);
 
     if (resp) {
@@ -80,7 +77,6 @@ class AuthHelper {
       process.env.SECRET_KEY || "",
       { expiresIn: "10h" }
     );
-
     return new ResponseTemp(true, "", 200, access_token);
   }
 }
